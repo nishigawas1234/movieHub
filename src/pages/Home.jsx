@@ -120,7 +120,7 @@ export default function Home() {
         </HStack>
       </form>
       <Text color="primary.500" fontSize="2xl" fontWeight="700">
-        {searchTerm}
+      All Movies
       </Text>
       {error ? (
         <Box>

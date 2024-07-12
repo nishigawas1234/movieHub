@@ -42,12 +42,16 @@ export default function MyList() {
         border="1px solid"
         borderColor="gray.500"
         borderRadius="8px"
+        mb={4}
       >
         <Text color="gray.500" fontWeight="700" fontSize="4xl">
           Welcome to MovieHub
         </Text>
         <Text color="gray.500">Explore the Journey of Cinematic World.</Text>
       </VStack>
+      <Text color="primary.500" fontSize="4xl" fontWeight="700">
+      My watchlist
+      </Text>
       {error ? (
         <Box>  <Text>{error}</Text></Box>     
       ) : (
