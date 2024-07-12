@@ -1,24 +1,49 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ChakraProvider, Box } from '@chakra-ui/react';
+import theme from "./styles/theme.js";
+import Home from './pages/Home';
+import SideBar from './components/Common/SideBar';
+import MyList from "./pages/MyList";
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp.jsx';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <AppLayout />
+      </BrowserRouter>
+    </ChakraProvider>
+  );
+}
+
+function AppLayout() {
+  const isSidebarVisible = !window.location.href.includes("/login") && !window.location.href.includes("/sign-in");
+
+  return (
+    <Box display="flex" h="100vh">
+      {/* Sidebar */}
+      {isSidebarVisible && <SideBar />}
+      <Box
+        as="main"
+        flex="1"
+        ml={{ base: 0, md: "250px" }} // Adjust for different screen sizes
+        p={{ base: 4, md: 6 }}
+        bg="primary.50"
+        h="100%"
+        overflowY="auto"
+      >
+        <Routes>
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/sign-in" element={<SignUp />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/list" element={<MyList />} />
+        </Routes>
+      </Box>
+    </Box>
   );
 }
 
