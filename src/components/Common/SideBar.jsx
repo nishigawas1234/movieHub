@@ -21,6 +21,7 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useLocation } from 'react-router-dom';
 import UserProfile from './UserProfile';
+import NavLogout from '../Icons/NavLogout'
 
 const Sidebar = () => {
   let pathname = useLocation().pathname;
@@ -32,58 +33,34 @@ const Sidebar = () => {
       label: "Home",
       icon: (
         <></>
-        // <NavDashboard
-        //   h="18px"
-        //   w="18px"
-        //   mr="8px"
-        //   color={pathname.includes("dashboard") ? "#fff" : "#2C365C"}
-        // />
+       
       ),
       href: "/home",
     },
     {
-      label: "My list",
+      label: "My Watchlist",
       icon: (
         <></>
-        // <NavTimeSheet
-        //   h="18px"
-        //   w="18px"
-        //   mr="8px"
-        //   color={pathname === "/time-sheet" ? "#fff" : "#2C365C"}
-        // />
+        
       ),
       href: "/list",
     },
-    {
-      label: "Documents",
-      icon: (
-        <></>
-        // <NavDocuments
-        //   h="18px"
-        //   w="18px"
-        //   mr="8px"
-        //   color={pathname === "/documents" ? "#fff" : "#2C365C"}
-        // />
-      ),
-      href: "/documents",
-    },
-    {
-      label: "Logout",
-      icon: ( <></>
-        // <NavLogout
-        //   h="18px"
-        //   w="18px"
-        //   mr="8px"
-        //   color={pathname === "/logout" ? "#fff" : "#FF3535"}
-        // />
-      ),
-      onClick: () => setIsLogout(true),
-    },
+   
+    // {
+    //   label: "Logout",
+    //   icon: ( 
+    //     <NavLogout
+    //       h="18px"
+    //       w="18px"
+    //       mr="8px"
+    //       color={pathname === "/logout" ? "#fff" : "#FF3535"}
+    //     />
+    //   ),
+    //   onClick: () => setIsLogout(true),
+    // },
   ];
 
-  const handleLogout = async () => {
-    // Implement logout functionality
-  };
+ 
 
   return (
     <>
@@ -105,7 +82,8 @@ const Sidebar = () => {
         w={{ base: "100%", md: "250px" }}
         bg="#FFF"
         p="4"
-        mt={15}
+        // mt={15}
+
         textAlign="center"
         borderRight={{ base: "none", md: "1px solid #eee" }}
         display={{ base: "none", md: "block" }}
