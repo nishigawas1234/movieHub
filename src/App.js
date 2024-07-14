@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import theme from "./styles/theme.js";
 import Home from './pages/Home';
@@ -21,7 +20,8 @@ function App() {
 }
 
 function AppLayout() {
-  const isSidebarVisible = !window.location.href.includes("/login") && !window.location.href.includes("/sign-in");
+  const location = useLocation();
+  const isSidebarVisible = !(location.pathname === "/login" || location.pathname === "/sign-up");
 
   return (
     <Box display="flex" h="100vh">
@@ -38,7 +38,7 @@ function AppLayout() {
       >
         <Routes>
           <Route path="/login" element={<SignIn />} />
-          <Route path="/sign-in" element={<SignUp />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
           <Route path="/list" element={<MyList />} />
         </Routes>
