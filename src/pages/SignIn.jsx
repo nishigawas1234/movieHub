@@ -9,11 +9,11 @@ export default function SignIn() {
     }
   return (
     <VStack m="auto" h="100%" justifyContent="center">
-       <Text color="gray.500" fontSize="3xl" fontWeight="bold" mt="4">
+       <Text color="contrast.100" fontSize="3xl" fontWeight="bold" mt="4">
           Welcome Back!
         </Text>
         <HStack mt="2" justifyContent="center">
-          <Text color="gray.500" fontSize="lg" fontWeight="normal">
+          <Text color="contrast.100" fontSize="lg" fontWeight="normal">
             Don’t have an account?
           </Text>
           <Link color="primary.500" fontSize="lg" fontWeight="normal" href="/sign-up">

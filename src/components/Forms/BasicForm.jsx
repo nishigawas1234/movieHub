@@ -62,7 +62,7 @@ export default function BasicForm({submitBtn}) {
                             !!form.errors.username && !!form.touched.username
                           }
                         >
-                          <FormLabel htmlFor="username" color="gray.500">
+                          <FormLabel htmlFor="username" color="contrast.100">
                             Email
                           </FormLabel>
                           <Input
@@ -72,7 +72,7 @@ export default function BasicForm({submitBtn}) {
                             type="email"
                             background="#fff"
                             border="1px solid #111111"
-                            color="gray.500"
+                            color="contrast.100"
                             _placeholder={{
                               fontSize: "md",
                               color: "gray.200",
@@ -106,12 +106,12 @@ export default function BasicForm({submitBtn}) {
                             !!form.errors.password && !!form.touched.password
                           }
                         >
-                          <FormLabel htmlFor="password" color="gray.500">
+                          <FormLabel htmlFor="password" color="contrast.100">
                             Password
                           </FormLabel>
                           <Input
                             {...field}
-                              color="gray.500"
+                              color="contrast.100"
                             id="password"
                             placeholder="****"
                             _placeholder={{

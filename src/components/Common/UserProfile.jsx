@@ -26,7 +26,7 @@ export default function UserProfile() {
     <Flex alignItems="center">
       <Image src="./Images/profile.png" borderRadius="50%" h="50px" w="50px" />
       <Box ms="2">
-        <Text color="gray.500" textAlign="start">
+        <Text color="contrast.100" textAlign="start">
           Nishigandha
         </Text>
        
@@ -38,9 +38,10 @@ export default function UserProfile() {
             icon={<MenuIcon />}
             variant="outline"
             ms={5}
+            borderColor="#242323"
           />
           <MenuList>
-            <MenuItem icon={<NavLogout h="14px" w="14px"/>} command="⌘T" onClick={handleLogout}>
+            <MenuItem icon={<NavLogout h="14px" w="14px" color="#fff"/>} command="⌘T" onClick={handleLogout}>
               Logout
             </MenuItem>
           </MenuList>

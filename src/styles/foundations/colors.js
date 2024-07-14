@@ -6,9 +6,9 @@ export const colors = {
     300: "#F2F2F2",
   },
   primary: {
-    50 : "#ede6e6",
+    50 : "#100F12",
     100: "#ffb6b6",
-    500: "#ff0000",
+    500: "#AC1B1B",
     600: "#5229AE",
   },
   gray : {

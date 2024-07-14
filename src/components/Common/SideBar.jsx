@@ -68,10 +68,10 @@ const Sidebar = () => {
         top="0"
         h="100vh"
         w={{ base: "0", lg: "250px" }}
-        bg="#FFF"
+        bg="#100f12"
         p="4"
         textAlign="center"
-        borderRight={{ base: "none", md: "1px solid #eee" }}
+        borderRight={{ base: "none", md: "1px solid #242323" }}
         display={{ base: "none", lg: "block" }}
       >
         <Text fontSize="4xl" color="primary.500" fontWeight="bold" mb="10">
@@ -100,7 +100,7 @@ const Sidebar = () => {
             </React.Fragment>
           ))}
         </VStack>
-        <Box borderTop="1px solid #eee" position="absolute" bottom="2%" py="6">
+        <Box borderTop="1px solid #242323" position="absolute" bottom="2%" py="6">
           <UserProfile />
         </Box>
       </Box>

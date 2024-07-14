@@ -89,24 +89,25 @@ export default function Home() {
       <VStack
         p={10}
         border="1px solid"
-        borderColor="gray.500"
+        borderColor="#242323"
         borderRadius="8px"
       >
-        <Text color="gray.500" fontWeight="700" fontSize={{ base: "2xl", md: "4xl" }}>
+        <Text color="contrast.100" fontWeight="700" fontSize={{ base: "2xl", md: "4xl" }}>
           Welcome to MovieHub
         </Text>
-        <Text color="gray.500">Explore the Journey of Cinematic World.</Text>
+        <Text color="contrast.100">Explore the Journey of Cinematic World.</Text>
       </VStack>
       <form onSubmit={handleSearch} style={{ width: "100%" }}>
         <HStack my={4} w="100%" justifyContent="flex-end">
           <InputGroup
-            bg="contrast.100"
+            bg="#100f12"
             borderRadius="16px"
             w={{ base: "100%", md: "60%" }}
+            borderColor="#242323"
           >
             <Input
               placeholder="Search Movie by name"
-              color="gray.500"
+              color="contrast.100"
               fontSize="md"
               h="50px"
               borderRadius="30px"
@@ -131,7 +132,7 @@ export default function Home() {
           </InputGroup>
         </HStack>
       </form>
-      <Text color="primary.500" fontSize={{ base: "xl", md: "2xl" }} fontWeight="700">
+      <Text color="#fff" fontSize={{ base: "xl", md: "2xl" }} fontWeight="700">
         All Movies
       </Text>
       {error && (

@@ -23,16 +23,16 @@ const MovieDetailModal = ({ isOpen, onClose, movie }) => {
               {movie.Plot}
             </Text>
             <Divider />
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="contrast.100">
               Genre: {movie.Genre}
             </Text>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="contrast.100">
               Year: {movie.Year}
             </Text>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="contrast.100">
               Director: {movie.Director}
             </Text>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="contrast.100">
               Actors: {movie.Actors}
             </Text>
           </Stack>

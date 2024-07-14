@@ -25,7 +25,7 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
     <>
       <BasicCard
         maxW="sm"
-        bg="#fff"
+        bg="#141313"
         pos="relative"
         h={{ base: "auto", md: "650px" }}
       >
@@ -59,17 +59,17 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
             objectFit="cover"
           />
           <Stack mt="6" spacing="3">
-            <Heading size="md" color="gray.500">
+            <Heading size="md" color="contrast.100">
               {data.Title}
             </Heading>
             <HStack>
               <StarIcon color="yellow.500" />
               <Text>4.5</Text>
             </HStack>
-            <Text color="gray.500">({data.Year})</Text>
+            <Text color="contrast.100">({data.Year})</Text>
           </Stack>
         </CardBody>
-        <Divider bg="gray.500" />
+        <Divider bg="contrast.100" />
         <CardFooter justifyContent="end">
           <ButtonGroup spacing="2">
             <Button
