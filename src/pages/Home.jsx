@@ -10,79 +10,78 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import MovieCard from "../components/Card/MovieCard";
 import SearchIcon from "../components/Icons/SearchIcon";
-import axios from "axios";
 import Pagination from "../components/Pagination";
 import Skelton from "../components/Common/Skelton";
-
-const OMDb_API_KEY = "20a805e0";
+import { fetchMovies } from "../redux/movies/movieThunks";
+import {
+  selectMovies,
+  selectSearchTerm,
+  selectError,
+  selectPage,
+  selectTotalPages
+} from "../redux/movies/movieSelector";
+import {setPage,setSearchTerm} from "../redux/movies/movieSlice"
+import {addUpdateWatchListData, getWatchListData} from "../utils/HandleLocalStorange/watchlistData"
+import { getLoggedinUser } from "../utils/HandleLocalStorange/userData";
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("Batman");
-  const [movies, setMovies] = useState([]);
-  const [error, setError] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [watchlistItem, setWatchlistItem] = useState([]);
-  const [searchData, setSearchData] = useState(movies);
+  const dispatch = useDispatch();
+  const userName = getLoggedinUser();
+  const searchTerm = useSelector(selectSearchTerm);
+  const movies = useSelector(selectMovies);
+  const error = useSelector(selectError);
+  const page = useSelector(selectPage);
+  const totalPages = useSelector(selectTotalPages);
+  const [watchListMovies , setWatchListMovies] = useState([])
 
   useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem("watchlist")) || [];
-    setWatchlistItem(storedItems);
-  }, []);
-
-  const addItem = (movie) => {
-    const newItem = movie;
-    const updatedItems = [...watchlistItem, newItem];
-
-    // Update the state and localStorage
-    setWatchlistItem(updatedItems);
-    localStorage.setItem("watchlist", JSON.stringify(updatedItems));
-  };
-
-  const fetchMovies = async () => {
-    setError("");
-    try {
-      const response = await axios.get(
-        `https://www.omdbapi.com/?apikey=${OMDb_API_KEY}&s=${searchTerm}&page=${page}`
-      );
-      if (response.data.Response === "True") {
-        setMovies(response.data.Search);
-        setSearchData(response.data.Search);
-        setTotalPages(Math.ceil(response.data.totalResults / 10));
-      } else {
-        setError(response.data.Error);
-      }
-    } catch (err) {
-      setError("An error occurred while fetching the data.");
-    }
-  };
+    dispatch(fetchMovies(searchTerm, page));
+  }, [dispatch, page, searchTerm]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setPage(1);
-    fetchMovies();
-  };
-
-  useEffect(() => {
-    fetchMovies();
-  }, [page, searchTerm]);
-
-  const removeItem = (imdbID) => {
-    const updatedItems = watchlistItem.filter((item) => item.imdbID !== imdbID);
-    localStorage.setItem("watchlist", JSON.stringify(updatedItems));
-    setWatchlistItem(updatedItems);
+    dispatch(setPage(1));
+    dispatch(fetchMovies(searchTerm, 1));
   };
 
   const onPageChange = (newPage) => {
-    setPage(newPage);
+    dispatch(setPage(newPage));
   };
 
   const isAdded = (imdbID) => {
-    const itemExists = watchlistItem.some((item) => item.imdbID === imdbID);
+    const data = getWatchListData()
+    const ids = data[userName] || [];
+    const itemExists = ids.includes(imdbID);
     return itemExists;
   };
+
+  const removeItem = (imdbIDs) => {
+    const data = getWatchListData()
+    const ids = data[userName] || [];
+    const watchListMovies = ids.filter(id => id !== imdbIDs);
+    addUpdateWatchListData(userName,watchListMovies)
+    filterMoviesByUsername(userName, getWatchListData(), movies)
+    dispatch(fetchMovies(searchTerm, page));
+  };
+  
+
+  function filterMoviesByUsername(username, getWatchListData, movies) {
+    const imdbIDs = getWatchListData[username] || [];
+    return movies.filter(movie => imdbIDs.includes(movie.imdbID));
+
+  }
+
+
+
+  const addItem = (imdbID) => {
+    watchListMovies.push(imdbID)
+    addUpdateWatchListData(userName,watchListMovies)
+    dispatch(fetchMovies(searchTerm, page));
+  }
+
 
   return (
     <Box p={5} bg="primary.50">
@@ -110,7 +109,7 @@ export default function Home() {
               fontSize="md"
               h="50px"
               borderRadius="30px"
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
               _placeholder={{
                 fontSize: "md",
                 color: "gray.400",
@@ -139,13 +138,13 @@ export default function Home() {
           <Text>{error}</Text>
         </Box>
       )}
-      {!error && searchData.length < 0 ? (
+      {!error && movies.length === 0 ? (
         <Box>
           <Skelton />
         </Box>
       ) : (
-        <Grid mt={4} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)",xl: "repeat(3, 1fr)","2xl": "repeat(4, 1fr)" }} gap={4}>
-          {searchData.map((movie, i) => (
+        <Grid mt={4} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)", xl: "repeat(3, 1fr)", "2xl": "repeat(4, 1fr)" }} gap={4}>
+          {movies.map((movie, i) => (
             <GridItem key={i}>
               <MovieCard
                 data={movie}
@@ -155,7 +154,7 @@ export default function Home() {
                   if (isAdded(movie.imdbID)) {
                     removeItem(movie.imdbID);
                   } else {
-                    addItem(movie);
+                    addItem(movie.imdbID);
                   }
                 }}
               />

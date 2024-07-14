@@ -29,7 +29,6 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
         pos="relative"
         h={{ base: "auto", md: "650px" }}
       >
-        {/* Badge for Added Movie */}
         {isAdded && type === "all" && (
           <Badge
             colorScheme="green"
@@ -74,7 +73,7 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
           <ButtonGroup spacing="2">
             <Button
               variant="solid"
-              colorScheme="primary"
+              colorScheme="primary.500"
               bg="primary.500"
               onClick={onOpen}
             >

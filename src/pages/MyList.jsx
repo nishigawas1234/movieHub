@@ -1,40 +1,54 @@
-
 import {
   Box,
   VStack,
   Text,
   Grid,
   GridItem,
-  InputGroup,
-  HStack,
-  Input,
-  InputRightElement,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import MovieCard from "../components/Card/MovieCard";
-import SearchIcon from "../components/Icons/SearchIcon";
+import { addUpdateWatchListData, getWatchListData } from "../utils/HandleLocalStorange/watchlistData";
+import { selectMovies } from "../redux/movies/movieSelector"; // Update this import path as needed
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "../redux/movies/movieThunks"; // Update this import path as needed
+import { getLoggedinUser } from "../utils/HandleLocalStorange/userData";
 
 export default function MyList() {
+  const userName = getLoggedinUser();
+  const dispatch = useDispatch();
+  const movies = useSelector(selectMovies);
   const [error, setError] = useState("");
   const [watchlistData, setWatchlistData] = useState([]);
+
+  useEffect(() => {
+    if (movies.length === 0) {
+      dispatch(fetchMovies('Batman', 1));
+    }
+    const initialWatchlistData = getWatchListData() || [];
+    setWatchlistData(initialWatchlistData);
+  }, [dispatch, movies.length]);
+
+  const removeItem = (imdbIDs) => {
+    const data = getWatchListData()
+    const ids = data[userName] || [];
+    const watchListMovies = ids.filter(id => id !== imdbIDs);
+    addUpdateWatchListData(userName,watchListMovies)
+    filterMoviesByUsername(userName, getWatchListData(), movies)
+  };
+  
+
+  function filterMoviesByUsername(username, getWatchListData, movies) {
+    const imdbIDs = getWatchListData[username] || [];
+    return movies.filter(movie => imdbIDs.includes(movie.imdbID));
+
+  }
+
   useEffect(()=>{
-   const watchlistData = JSON.parse(localStorage.getItem('watchlist')) || [];
-   console.log(watchlistData,"watchlistData")
-   setWatchlistData(watchlistData)
-  },[watchlistData])
+    const data = filterMoviesByUsername(userName, getWatchListData(), movies);
+    setWatchlistData(data)
+  },[removeItem])
 
-  const removeItem = (imdbID)=>{
-    const updatedItems = watchlistData.filter(item => item.imdbID !== imdbID);
-    localStorage.setItem("watchlist", JSON.stringify(updatedItems));
-    setWatchlistData(updatedItems)
-  }
 
- const isAdded = (imdbID) =>{
-  const itemExists = watchlistData.some(item => item.imdbID === imdbID);
-  if(itemExists){
-    return true
-  }
- }
 
   return (
     <Box p={5} bg="primary.50">
@@ -51,21 +65,36 @@ export default function MyList() {
         <Text color="gray.500">Explore the Journey of Cinematic World.</Text>
       </VStack>
       <Text color="primary.500" fontSize="4xl" fontWeight="700">
-      My watchlist
+        My watchlist
       </Text>
-      {error ? (
-        <Box>  <Text>{error}</Text></Box>     
+      {error && watchlistData?.length > 0 ? (
+        <Box>
+          <Text>{error}</Text>
+        </Box>
       ) : (
-        <Grid mt={4} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)",xl: "repeat(3, 1fr)","2xl": "repeat(4, 1fr)" }}  gap={4}>
-          {watchlistData.map((movie, i) => {
-            return (
-              <GridItem key={i}>
-                <MovieCard data={movie} type="watchlist" isAdded={isAdded(movie.imdbID)} secondaryBtnHandler={() => removeItem(movie.imdbID)}/>
-              </GridItem>
-            );
-          })}
+        <Grid
+          mt={4}
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(2, 1fr)",
+            xl: "repeat(3, 1fr)",
+            "2xl": "repeat(4, 1fr)"
+          }}
+          gap={4}
+        >
+          {watchlistData?.map((movie, i) => (
+            <GridItem key={i}>
+              <MovieCard
+                data={movie}
+                type="watchlist"
+                isAdded={true}
+                secondaryBtnHandler={() => removeItem(movie.imdbID)}
+              />
+            </GridItem>
+          ))}
         </Grid>
       )}
     </Box>
-  )
+  );
 }
