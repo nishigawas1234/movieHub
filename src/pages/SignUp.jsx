@@ -5,7 +5,7 @@ import BasicForm from '../components/Forms/BasicForm'
 export default function SignUp() {
     const signUpHandler =(values)=>{
         console.log(values,"values")
-        window.location.href = "/login";
+        window.location.href = "/";
     }
   return (
     <VStack m="auto" h="100%" justifyContent="center">
@@ -16,7 +16,7 @@ export default function SignUp() {
           <Text color="gray.500" fontSize="lg" fontWeight="normal">
           Already have an account?
           </Text>
-          <Link color="primary.500" fontSize="lg" fontWeight="normal" href="/login">
+          <Link color="primary.500" fontSize="lg" fontWeight="normal" href="/">
             Sign in
           </Link>
           </HStack>

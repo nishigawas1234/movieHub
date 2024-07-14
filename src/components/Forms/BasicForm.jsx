@@ -78,13 +78,13 @@ export default function BasicForm({submitBtn}) {
                               color: "gray.200",
                             }}
                             _active={{
-                                bg: "transparent",
-                                    bordder:"1px solid #111111"
-                              }}
-                              _hover={{
-                                bg: "transparent",
-                                    bordder:"1px solid #111111"
-                              }}
+                              bg: "contrast.100",
+                              bordder:"1px solid #111111"
+                            }}
+                            _hover={{
+                              bg: "contrast.100",
+                                  bordder:"1px solid #111111"
+                            }}
                               _focus={{
                                 boxShadow: "none",
                                     bordder:"1px solid #111111"
@@ -119,14 +119,14 @@ export default function BasicForm({submitBtn}) {
                               color: "gray.200",
                             }}
                             type="password"
-                            background="#fff"
+                            background="contrast.100"
                             border="1px solid #111111"
                             _active={{
-                                bg: "transparent",
+                                bg: "contrast.100",
                                 bordder:"1px solid #111111"
                               }}
                               _hover={{
-                                bg: "transparent",
+                                bg: "contrast.100",
                                     bordder:"1px solid #111111"
                               }}
                               _focus={{

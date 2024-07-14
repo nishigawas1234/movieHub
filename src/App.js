@@ -21,7 +21,7 @@ function App() {
 
 function AppLayout() {
   const location = useLocation();
-  const isSidebarVisible = !(location.pathname === "/login" || location.pathname === "/sign-up");
+  const isSidebarVisible = !(location.pathname === "/" || location.pathname === "/sign-up");
 
   return (
     <Box display="flex" h="100vh">
@@ -37,7 +37,7 @@ function AppLayout() {
         overflowY="auto"
       >
         <Routes>
-          <Route path="/login" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
           <Route path="/list" element={<MyList />} />
