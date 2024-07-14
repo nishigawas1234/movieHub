@@ -92,7 +92,7 @@ export default function Home() {
         borderColor="gray.500"
         borderRadius="8px"
       >
-        <Text color="gray.500" fontWeight="700" fontSize="4xl">
+        <Text color="gray.500" fontWeight="700" fontSize={{ base: "2xl", md: "4xl" }}>
           Welcome to MovieHub
         </Text>
         <Text color="gray.500">Explore the Journey of Cinematic World.</Text>
@@ -109,7 +109,7 @@ export default function Home() {
               color="gray.500"
               fontSize="md"
               h="50px"
-              borderRadius="30px 30px 30px 30px"
+              borderRadius="30px"
               onChange={(e) => setSearchTerm(e.target.value)}
               _placeholder={{
                 fontSize: "md",
@@ -131,7 +131,7 @@ export default function Home() {
           </InputGroup>
         </HStack>
       </form>
-      <Text color="primary.500" fontSize="2xl" fontWeight="700">
+      <Text color="primary.500" fontSize={{ base: "xl", md: "2xl" }} fontWeight="700">
         All Movies
       </Text>
       {error && (
@@ -144,7 +144,7 @@ export default function Home() {
           <Skelton />
         </Box>
       ) : (
-        <Grid mt={4} templateColumns="repeat(4, 1fr)" gap={4}>
+        <Grid mt={4} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)",xl: "repeat(3, 1fr)","2xl": "repeat(4, 1fr)" }} gap={4}>
           {searchData.map((movie, i) => (
             <GridItem key={i}>
               <MovieCard

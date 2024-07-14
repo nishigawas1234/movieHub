@@ -23,7 +23,12 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <BasicCard maxW="sm" bg="#fff" pos="relative" h="650px">
+      <BasicCard
+        maxW="sm"
+        bg="#fff"
+        pos="relative"
+        h={{ base: "auto", md: "650px" }}
+      >
         {/* Badge for Added Movie */}
         {isAdded && type === "all" && (
           <Badge
@@ -50,7 +55,7 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
             alt={data.Title}
             borderRadius="lg"
             width="100%"
-            height="400px"
+            height={{ base: "auto", md: "400px" }}
             objectFit="cover"
           />
           <Stack mt="6" spacing="3">
@@ -67,10 +72,20 @@ export default function MovieCard({ data, type, isAdded, secondaryBtnHandler }) 
         <Divider bg="gray.500" />
         <CardFooter justifyContent="end">
           <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="primary" bg="primary.500" onClick={onOpen}>
+            <Button
+              variant="solid"
+              colorScheme="primary"
+              bg="primary.500"
+              onClick={onOpen}
+            >
               View Details
             </Button>
-            <Button variant="ghost" color="primary.500" colorScheme="primary" onClick={secondaryBtnHandler}>
+            <Button
+              variant="ghost"
+              color="primary.500"
+              colorScheme="primary"
+              onClick={secondaryBtnHandler}
+            >
               {isAdded ? "Remove" : "Add to Watchlist"}
             </Button>
           </ButtonGroup>

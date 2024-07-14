@@ -19,7 +19,7 @@ import MenuIcon from '../Icons/MenuIcon'
 
 export default function UserProfile() {
   const handleLogout = async () => {
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (
