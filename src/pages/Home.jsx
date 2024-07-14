@@ -105,7 +105,7 @@ export default function Home() {
             w={{ base: "100%", md: "60%" }}
           >
             <Input
-              placeholder="Search Movie"
+              placeholder="Search Movie by name"
               color="gray.500"
               fontSize="md"
               h="50px"
@@ -113,7 +113,7 @@ export default function Home() {
               onChange={(e) => setSearchTerm(e.target.value)}
               _placeholder={{
                 fontSize: "md",
-                color: "gray.500",
+                color: "gray.400",
               }}
             />
             <InputRightElement

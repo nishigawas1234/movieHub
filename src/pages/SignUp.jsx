@@ -16,11 +16,11 @@ export default function SignUp() {
           <Text color="gray.500" fontSize="lg" fontWeight="normal">
           Already have an account?
           </Text>
-          <Link color="primary.500" fontSize="lg" fontWeight="normal" href="/sign-in">
+          <Link color="primary.500" fontSize="lg" fontWeight="normal" href="/login">
             Sign in
           </Link>
           </HStack>
-        <BasicForm submitBtn={{label:"Sign Up" , handler: signUpHandler()}}/>
+        <BasicForm submitBtn={{label:"Sign Up" , handler: ()=>{signUpHandler()}}}/>
     </VStack>
   )
 }

@@ -73,6 +73,10 @@ export default function BasicForm({submitBtn}) {
                             background="#fff"
                             border="1px solid #111111"
                             color="gray.500"
+                            _placeholder={{
+                              fontSize: "md",
+                              color: "gray.200",
+                            }}
                             _active={{
                                 bg: "transparent",
                                     bordder:"1px solid #111111"
@@ -110,6 +114,10 @@ export default function BasicForm({submitBtn}) {
                               color="gray.500"
                             id="password"
                             placeholder="****"
+                            _placeholder={{
+                              fontSize: "md",
+                              color: "gray.200",
+                            }}
                             type="password"
                             background="#fff"
                             border="1px solid #111111"
