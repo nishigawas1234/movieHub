@@ -8,6 +8,8 @@ import SideBar from './components/Common/SideBar';
 import MyList from "./pages/MyList";
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp.jsx';
+import { Provider } from "react-redux";
+import store from "./redux/store.js";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function AppLayout() {
   const isSidebarVisible = !(location.pathname === "/" || location.pathname === "/sign-up");
 
   return (
+    <Provider store={store}>
     <Box display="flex" h="100vh">
       {/* Sidebar */}
       {isSidebarVisible && <SideBar />}
@@ -44,6 +47,7 @@ function AppLayout() {
         </Routes>
       </Box>
     </Box>
+    </Provider>
   );
 }
 

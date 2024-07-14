@@ -1,11 +1,14 @@
 import { VStack ,HStack ,Text,Link} from '@chakra-ui/react'
 import React from 'react'
 import BasicForm from '../components/Forms/BasicForm'
+import {registerUser } from "../utils/HandleLocalStorange/registerUsers"
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  const navigate = useNavigate();
     const signUpHandler =(values)=>{
-        console.log(values,"values")
-        window.location.href = "/";
+        registerUser(values.username)
+        navigate("/");
     }
   return (
     <VStack m="auto" h="100%" justifyContent="center">
@@ -20,7 +23,7 @@ export default function SignUp() {
             Sign in
           </Link>
           </HStack>
-        <BasicForm submitBtn={{label:"Sign Up" , handler: ()=>{signUpHandler()}}}/>
+        <BasicForm submitBtn={{label:"Sign Up" , handler: signUpHandler}}/>
     </VStack>
   )
 }

@@ -16,18 +16,31 @@ import {
 } from "@chakra-ui/react";
 import NavLogout from '../Icons/NavLogout'
 import MenuIcon from '../Icons/MenuIcon'
+import { deleteLoggedinUser, getLoggedinUser } from "../../utils/HandleLocalStorange/userData";
+import { useNavigate } from "react-router-dom";
+
 
 export default function UserProfile() {
+  const navigate = useNavigate();
+  const userName = getLoggedinUser()
   const handleLogout = async () => {
-    window.location.href = "/";
+    deleteLoggedinUser()
+    navigate("/");
   };
+  
+  function splitEmail(email) {
+    const [username] = email.split('@');
+  
+    return username;
+  }
+
 
   return (
     <Flex alignItems="center">
       <Image src="./Images/profile.png" borderRadius="50%" h="50px" w="50px" />
       <Box ms="2">
         <Text color="gray.500" textAlign="start">
-          Nishigandha
+          {splitEmail(userName)}
         </Text>
        
       </Box>
