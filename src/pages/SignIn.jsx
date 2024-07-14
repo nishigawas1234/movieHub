@@ -16,7 +16,7 @@ export default function SignIn() {
           <Text color="gray.500" fontSize="lg" fontWeight="normal">
             Don’t have an account?
           </Text>
-          <Link color="#52930f" fontSize="lg" fontWeight="normal" href="/sign-in">
+          <Link color="primary.500" fontSize="lg" fontWeight="normal" href="/sign-in">
             Sign up
           </Link>
           </HStack>

@@ -13,6 +13,8 @@ import React, { useEffect, useState } from "react";
 import MovieCard from "../components/Card/MovieCard";
 import SearchIcon from "../components/Icons/SearchIcon";
 import axios from "axios";
+import Pagination from "../components/Pagination";
+import Skelton from "../components/Common/Skelton";
 
 const OMDb_API_KEY = "20a805e0";
 
@@ -21,7 +23,9 @@ export default function Home() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [watchlistItem, setWatchlistItem] = useState([]);
+  const [searchData, setSearchData] = useState(movies);
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem("watchlist")) || [];
@@ -44,7 +48,9 @@ export default function Home() {
         `https://www.omdbapi.com/?apikey=${OMDb_API_KEY}&s=${searchTerm}&page=${page}`
       );
       if (response.data.Response === "True") {
-        setMovies((prevMovies) => [...prevMovies, ...response.data.Search]);
+        setMovies(response.data.Search);
+        setSearchData(response.data.Search);
+        setTotalPages(Math.ceil(response.data.totalResults / 10));
       } else {
         setError(response.data.Error);
       }
@@ -55,7 +61,6 @@ export default function Home() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setMovies([]);
     setPage(1);
     fetchMovies();
   };
@@ -70,20 +75,13 @@ export default function Home() {
     setWatchlistItem(updatedItems);
   };
 
-  const loadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+  const onPageChange = (newPage) => {
+    setPage(newPage);
   };
-
-  console.log(movies, "movies");
 
   const isAdded = (imdbID) => {
     const itemExists = watchlistItem.some((item) => item.imdbID === imdbID);
-    console.log(itemExists, "itemExists");
-    if (itemExists) {
-      return true;
-    } else {
-      return false;
-    }
+    return itemExists;
   };
 
   return (
@@ -101,53 +99,75 @@ export default function Home() {
       </VStack>
       <form onSubmit={handleSearch} style={{ width: "100%" }}>
         <HStack my={4} w="100%" justifyContent="flex-end">
-          <InputGroup bg="#F2F2FD" borderRadius="16px" w={{ base: "100%", md: "60%" }}>
+          <InputGroup
+            bg="contrast.100"
+            borderRadius="16px"
+            w={{ base: "100%", md: "60%" }}
+          >
             <Input
               placeholder="Search Movie"
-              color="#111"
+              color="gray.500"
               fontSize="md"
               h="50px"
+              borderRadius="30px 30px 30px 30px"
               onChange={(e) => setSearchTerm(e.target.value)}
               _placeholder={{
                 fontSize: "md",
-                color: "#111",
+                color: "gray.500",
               }}
             />
-            <InputRightElement bg="primary.500" h="50px" onClick={handleSearch}>
+            <InputRightElement
+              borderRadius="0 30px 30px 0"
+              h="50px"
+              w="75px"
+              onClick={handleSearch}
+              style={{
+                background:
+                  "linear-gradient(98.37deg, #f89e00 .99%, #da2f68 100%)",
+              }}
+            >
               <SearchIcon h="18px" w="18px" top="-3px" color="black" />
             </InputRightElement>
           </InputGroup>
         </HStack>
       </form>
       <Text color="primary.500" fontSize="2xl" fontWeight="700">
-      All Movies
+        All Movies
       </Text>
-      {error ? (
+      {error && (
         <Box>
           <Text>{error}</Text>
         </Box>
+      )}
+      {!error && searchData.length < 0 ? (
+        <Box>
+          <Skelton />
+        </Box>
       ) : (
         <Grid mt={4} templateColumns="repeat(4, 1fr)" gap={4}>
-          {movies.map((movie, i) => {
-            return (
-              <GridItem key={i}>
-                <MovieCard
-                  data={movie}
-                  type="all"
-                  isAdded={isAdded(movie.imdbID)}
-                  secondaryBtnHandler={() => {
-                    if (isAdded(movie.imdbID)) {
-                      removeItem(movie.imdbID);
-                    } else {
-                      addItem(movie);
-                    }
-                  }}
-                />
-              </GridItem>
-            );
-          })}
+          {searchData.map((movie, i) => (
+            <GridItem key={i}>
+              <MovieCard
+                data={movie}
+                type="all"
+                isAdded={isAdded(movie.imdbID)}
+                secondaryBtnHandler={() => {
+                  if (isAdded(movie.imdbID)) {
+                    removeItem(movie.imdbID);
+                  } else {
+                    addItem(movie);
+                  }
+                }}
+              />
+            </GridItem>
+          ))}
         </Grid>
       )}
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </Box>
   );
 }

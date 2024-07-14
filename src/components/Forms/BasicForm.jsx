@@ -62,7 +62,7 @@ export default function BasicForm({submitBtn}) {
                             !!form.errors.username && !!form.touched.username
                           }
                         >
-                          <FormLabel htmlFor="username" color="#111111">
+                          <FormLabel htmlFor="username" color="gray.500">
                             Email
                           </FormLabel>
                           <Input
@@ -72,7 +72,7 @@ export default function BasicForm({submitBtn}) {
                             type="email"
                             background="#fff"
                             border="1px solid #111111"
-                            color="#111111"
+                            color="gray.500"
                             _active={{
                                 bg: "transparent",
                                     bordder:"1px solid #111111"
@@ -102,17 +102,17 @@ export default function BasicForm({submitBtn}) {
                             !!form.errors.password && !!form.touched.password
                           }
                         >
-                          <FormLabel htmlFor="password" color="#111111">
+                          <FormLabel htmlFor="password" color="gray.500">
                             Password
                           </FormLabel>
                           <Input
                             {...field}
-                              color="#111111"
+                              color="gray.500"
                             id="password"
                             placeholder="****"
                             type="password"
                             background="#fff"
-                          bordder="1px solid #111111"
+                            border="1px solid #111111"
                             _active={{
                                 bg: "transparent",
                                 bordder:"1px solid #111111"

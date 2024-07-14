@@ -1,6 +1,7 @@
 
 export const colors = {
   contrast: {
+    100: "#ffffff",
     200: "#3BCBBE",
     300: "#F2F2F2",
   },

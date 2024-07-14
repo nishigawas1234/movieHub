@@ -21,10 +21,11 @@ export default function MyList() {
    const watchlistData = JSON.parse(localStorage.getItem('watchlist')) || [];
    console.log(watchlistData,"watchlistData")
    setWatchlistData(watchlistData)
-  },[])
+  },[watchlistData])
 
   const removeItem = (imdbID)=>{
     const updatedItems = watchlistData.filter(item => item.imdbID !== imdbID);
+    localStorage.setItem("watchlist", JSON.stringify(updatedItems));
     setWatchlistData(updatedItems)
   }
 
@@ -59,7 +60,7 @@ export default function MyList() {
           {watchlistData.map((movie, i) => {
             return (
               <GridItem key={i}>
-                <MovieCard data={movie} type="watchlist" isAdded={isAdded(movie.imdbID)} secondaryBtnHandler={() => removeItem(movie)}/>
+                <MovieCard data={movie} type="watchlist" isAdded={isAdded(movie.imdbID)} secondaryBtnHandler={() => removeItem(movie.imdbID)}/>
               </GridItem>
             );
           })}

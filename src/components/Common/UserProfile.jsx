@@ -26,7 +26,7 @@ export default function UserProfile() {
     <Flex alignItems="center">
       <Image src="./Images/profile.png" borderRadius="50%" h="50px" w="50px" />
       <Box ms="2">
-        <Text color="#111111" textAlign="start">
+        <Text color="gray.500" textAlign="start">
           Nishigandha
         </Text>
        
