@@ -30,8 +30,8 @@ function AppLayout() {
       <Box
         as="main"
         flex="1"
-        ml={{ base: 0, md: isSidebarVisible ? "250px"  : "0"}} // Adjust for different screen sizes
-        p={{ base: 4, md: 6 }}
+        ml={{ base: 0, lg: isSidebarVisible ? "250px" : "0"}} // Adjust for different screen sizes
+        p={{ base: 4, lg: 6 }}
         bg="primary.50"
         h="100%"
         overflowY="auto"

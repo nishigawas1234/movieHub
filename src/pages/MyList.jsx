@@ -56,7 +56,7 @@ export default function MyList() {
       {error ? (
         <Box>  <Text>{error}</Text></Box>     
       ) : (
-        <Grid mt={4} templateColumns="repeat(4, 1fr)" gap={4}>
+        <Grid mt={4} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)",xl: "repeat(3, 1fr)","2xl": "repeat(4, 1fr)" }}  gap={4}>
           {watchlistData.map((movie, i) => {
             return (
               <GridItem key={i}>
