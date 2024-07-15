@@ -8,10 +8,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   IconButton
 } from "@chakra-ui/react";
 import NavLogout from '../Icons/NavLogout'
@@ -26,6 +22,7 @@ export default function UserProfile() {
   const handleLogout = async () => {
     deleteLoggedinUser()
     navigate("/");
+    
   };
   
   function splitEmail(email) {

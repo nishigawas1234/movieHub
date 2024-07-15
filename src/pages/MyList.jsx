@@ -4,51 +4,56 @@ import {
   Text,
   Grid,
   GridItem,
+  Button,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import MovieCard from "../components/Card/MovieCard";
-import { addUpdateWatchListData, getWatchListData } from "../utils/HandleLocalStorange/watchlistData";
+import {
+  addUpdateWatchListData,
+  getWatchListData,
+} from "../utils/HandleLocalStorange/watchlistData";
 import { selectMovies } from "../redux/movies/movieSelector"; // Update this import path as needed
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies } from "../redux/movies/movieThunks"; // Update this import path as needed
 import { getLoggedinUser } from "../utils/HandleLocalStorange/userData";
+import { useNavigate } from "react-router-dom";
 
 export default function MyList() {
   const userName = getLoggedinUser();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const movies = useSelector(selectMovies);
-  const [error, setError] = useState("");
   const [watchlistData, setWatchlistData] = useState([]);
 
   useEffect(() => {
     if (movies.length === 0) {
-      dispatch(fetchMovies('Batman', 1));
+      dispatch(fetchMovies("Batman", 1));
     }
     const initialWatchlistData = getWatchListData() || [];
     setWatchlistData(initialWatchlistData);
   }, [dispatch, movies.length]);
 
   const removeItem = (imdbIDs) => {
-    const data = getWatchListData()
+    const data = getWatchListData();
     const ids = data[userName] || [];
-    const watchListMovies = ids.filter(id => id !== imdbIDs);
-    addUpdateWatchListData(userName,watchListMovies)
-    filterMoviesByUsername(userName, getWatchListData(), movies)
+    const watchListMovies = ids.filter((id) => id !== imdbIDs);
+    addUpdateWatchListData(userName, watchListMovies);
+    filterMoviesByUsername(userName, getWatchListData(), movies);
   };
-  
+  const addMoviesRedirection = () => {
+    navigate("/home");
+  };
 
-  function filterMoviesByUsername(username, getWatchListData, movies) {
+  const filterMoviesByUsername = (username, getWatchListData, movies) => {
     const imdbIDs = getWatchListData[username] || [];
-    return movies.filter(movie => imdbIDs.includes(movie.imdbID));
-
+    return movies.filter((movie) => imdbIDs.includes(movie.imdbID));
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const data = filterMoviesByUsername(userName, getWatchListData(), movies);
-    setWatchlistData(data)
-  },[removeItem])
-
-
+    setWatchlistData(data);
+  }, [removeItem]);
 
   return (
     <Box p={5} bg="primary.50">
@@ -67,10 +72,18 @@ export default function MyList() {
       <Text color="primary.500" fontSize="4xl" fontWeight="700">
         My watchlist
       </Text>
-      {error && watchlistData?.length > 0 ? (
-        <Box>
-          <Text>{error}</Text>
-        </Box>
+      {watchlistData?.length <= 0 ? (
+        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" flexDir="column">
+            <Text fontSize="lg" mb={4}>Your Watchlist is empty</Text>
+            <Button
+              variant="solid"
+              colorScheme="primary.500"
+              bg="primary.500"
+              onClick={addMoviesRedirection}
+            >
+              Add Movies
+            </Button>
+        </Flex>
       ) : (
         <Grid
           mt={4}
@@ -79,7 +92,7 @@ export default function MyList() {
             md: "repeat(2, 1fr)",
             lg: "repeat(2, 1fr)",
             xl: "repeat(3, 1fr)",
-            "2xl": "repeat(4, 1fr)"
+            "2xl": "repeat(4, 1fr)",
           }}
           gap={4}
         >

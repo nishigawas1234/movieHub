@@ -1,4 +1,4 @@
-import { VStack, HStack, Text, Link } from "@chakra-ui/react";
+import { VStack, HStack, Text, Link ,  useToast } from "@chakra-ui/react";
 import React from "react";
 import BasicForm from "../components/Forms/BasicForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import {getResigerUsers} from "../utils/HandleLocalStorange/registerUsers"
 import { loggedinUser } from "../utils/HandleLocalStorange/userData";
 
 export default function SignIn() {
+  const toast = useToast();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const signInHandler = (values) => {
@@ -17,7 +18,11 @@ export default function SignIn() {
       loggedinUser(values.username)
       navigate("/home");
      }else{
-      alert("please register")
+      toast({
+        title: "User not found, please register",
+        status: "error",
+        isClosable: true,
+      });
      }
    
   };

@@ -30,25 +30,14 @@ const Sidebar = () => {
   const siderBarItem = [
     {
       label: "Home",
-      icon: <></>,
       href: "/home",
     },
     {
       label: "My Watchlist",
-      icon: <></>,
       href: "/list",
     },
   ];
 
-  const handleLogout = () => {
-    setIsLogout(true);
-    toast({
-      title: "Logged out successfully",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
 
   return (
     <>
@@ -93,7 +82,6 @@ const Sidebar = () => {
                 py="3"
               >
                 <Flex>
-                  {item.icon}
                   <Text> {item.label}</Text>
                 </Flex>
               </Link>
