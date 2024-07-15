@@ -1,8 +1,6 @@
 import React from "react";
 import BasicCard from ".";
 import {
-  Box,
-  CardHeader,
   CardBody,
   CardFooter,
   Button,

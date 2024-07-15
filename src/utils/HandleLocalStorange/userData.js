@@ -1,7 +1,6 @@
 
 
 export function loggedinUser(username){
-    // const existingData = JSON.parse(localStorage.getItem('loggedinUser')) || undefined;
     sessionStorage.setItem('loggedinUser', JSON.stringify(username));
 }
 
