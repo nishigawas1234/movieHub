@@ -1,7 +1,7 @@
 import { VStack, HStack, Text, Link ,  useToast } from "@chakra-ui/react";
 import React from "react";
 import BasicForm from "../components/Forms/BasicForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import {getResigerUsers} from "../utils/HandleLocalStorange/registerUsers"

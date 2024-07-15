@@ -19,13 +19,10 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useLocation } from 'react-router-dom';
 import UserProfile from './UserProfile';
-import NavLogout from '../Icons/NavLogout';
 
 const Sidebar = () => {
   const { pathname } = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isLogout, setIsLogout] = useState(false);
-  const toast = useToast();
 
   const siderBarItem = [
     {
