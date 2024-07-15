@@ -14,7 +14,7 @@ import {
   Image,
   useToast,
 } from "@chakra-ui/react";
-import { Formik, Field, Form, FieldProps, FormikHelpers } from "formik";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({

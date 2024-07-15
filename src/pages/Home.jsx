@@ -8,6 +8,7 @@ import {
   HStack,
   Input,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,7 @@ import {addUpdateWatchListData, getWatchListData} from "../utils/HandleLocalStor
 import { getLoggedinUser } from "../utils/HandleLocalStorange/userData";
 
 export default function Home() {
+  const toast = useToast();
   const dispatch = useDispatch();
   const userName = getLoggedinUser();
   const searchTerm = useSelector(selectSearchTerm);
@@ -65,10 +67,15 @@ export default function Home() {
     addUpdateWatchListData(userName,watchListMovies)
     filterMoviesByUsername(userName, getWatchListData(), movies)
     dispatch(fetchMovies(searchTerm, page));
+    toast({
+      title: "Movie removed successfully",
+      status: "success",
+      isClosable: true,
+    });
   };
   
 
-  function filterMoviesByUsername(username, getWatchListData, movies) {
+  const filterMoviesByUsername = (username, getWatchListData, movies) => {
     const imdbIDs = getWatchListData[username] || [];
     return movies.filter(movie => imdbIDs.includes(movie.imdbID));
 
@@ -80,6 +87,11 @@ export default function Home() {
     watchListMovies.push(imdbID)
     addUpdateWatchListData(userName,watchListMovies)
     dispatch(fetchMovies(searchTerm, page));
+    toast({
+      title: "Movie added successfully",
+      status: "success",
+      isClosable: true,
+    });
   }
 
 
